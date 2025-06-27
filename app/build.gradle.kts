@@ -19,6 +19,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    hilt {
+        enableAggregatingTask = false
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -58,6 +62,7 @@ dependencies {
     //Room database
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     //Glide
     implementation(libs.glide)
@@ -65,5 +70,8 @@ dependencies {
     //Hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    //Viewmodel lifecycle
+    implementation(libs.viewmodel.lifecycle)
 
 }

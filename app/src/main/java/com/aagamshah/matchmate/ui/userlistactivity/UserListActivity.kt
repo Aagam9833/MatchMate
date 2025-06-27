@@ -1,31 +1,28 @@
-package com.aagamshah.matchmate
+package com.aagamshah.matchmate.ui.userlistactivity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import com.aagamshah.matchmate.ui.userlistactivity.UserListActivity
+import com.aagamshah.matchmate.R
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class UserListActivity : AppCompatActivity() {
+
+    private val userListViewModel: UserListViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_user_list)
+        userListViewModel
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
-        lifecycleScope.launch {
-            delay(2000)
-            startActivity(Intent(this@MainActivity, UserListActivity::class.java))
         }
     }
 }

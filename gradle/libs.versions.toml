@@ -1,6 +1,6 @@
 [versions]
 agp = "8.11.0"
-kotlin = "2.0.21"
+kotlin = "2.0.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -12,11 +12,11 @@ constraintlayout = "2.2.1"
 
 #Additional dependencies version
 retrofit = "3.0.0"
-retrofitConverter = "3.0.0"
 room = "2.7.2"
 glide = "4.16.0"
-hilt = "2.56.2"
-ksp = "2.1.21-2.0.1"
+hilt = "2.52"
+ksp = "2.0.0-1.0.21"
+lifecycle = "2.9.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,11 +30,12 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 
 #Retrofit
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitConverter" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
 #Room database
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 #Glide
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
@@ -42,6 +43,9 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 #Hilt
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+
+#Viewmodel lifecycle
+viewmodel-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
