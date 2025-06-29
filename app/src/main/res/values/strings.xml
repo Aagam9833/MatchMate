@@ -7,4 +7,11 @@
     <string name="match_score">Match Score</string>
     <string name="reject">Reject</string>
     <string name="accept">Accept</string>
+    <string name="match_mate">Match Mate</string>
+    <string name="preferences">Preferences</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="looking_for">Looking For?</string>
+    <string name="your_age">Your Age?</string>
+    <string name="save">Save</string>
 </resources>

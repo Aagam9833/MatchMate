@@ -7,6 +7,9 @@ import javax.inject.Singleton
 @Singleton
 interface ProfileRepository {
 
-    suspend fun fetchUsers(): Resource<List<ProfileModel>>
+    suspend fun fetchProfiles(): Resource<List<ProfileModel>>
+    suspend fun fetchOfflineProfiles(): List<ProfileModel>
+    suspend fun saveProfiles(users: List<ProfileModel>)
+    suspend fun updateProfileChoice(profileId: String, isAccepted: Boolean?)
 
 }

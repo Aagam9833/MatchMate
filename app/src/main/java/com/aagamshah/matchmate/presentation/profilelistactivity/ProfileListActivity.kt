@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.aagamshah.matchmate.common.Resource
+import com.aagamshah.matchmate.common.hasInternetConnection
 import com.aagamshah.matchmate.databinding.ActivityUserListBinding
 import com.aagamshah.matchmate.domain.model.ProfileModel
 import com.aagamshah.matchmate.presentation.adapter.ProfileAdapter
@@ -19,14 +20,25 @@ class ProfileListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserListBinding
     private val profileListViewModel: ProfileListViewModel by viewModels()
-    private val profileListAdapter = ProfileAdapter(mutableListOf())
+    private val profileListAdapter = ProfileAdapter(mutableListOf()) { id, isAccepted ->
+        profileListViewModel.saveProfileChoice(id, isAccepted)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setUI()
         setObserver()
+        callApi()
 
+    }
+
+    private fun callApi() {
+        if (this.hasInternetConnection()) {
+            profileListViewModel.fetchProfiles()
+        } else {
+            profileListViewModel.fetchOfflineProfiles()
+        }
     }
 
     private fun setObserver() {
@@ -39,6 +51,7 @@ class ProfileListActivity : AppCompatActivity() {
 
                 is Resource.Success -> {
                     binding.pbLoader.visibility = View.GONE
+                    profileListViewModel.storeProfilesOffline(result.data)
                     setData(result.data)
                 }
             }

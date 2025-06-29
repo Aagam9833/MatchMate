@@ -29,7 +29,7 @@ data class Result (
 
 data class Dob (
     val date: String,
-    val age: Long
+    val age: Int
 )
 
 enum class Gender {

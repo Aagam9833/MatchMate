@@ -1,7 +1,6 @@
 package com.aagamshah.matchmate.domain.model
 
 import com.aagamshah.matchmate.data.remote.Dob
-import com.aagamshah.matchmate.data.remote.Location
 import com.aagamshah.matchmate.data.remote.Name
 import com.aagamshah.matchmate.data.remote.Picture
 
@@ -12,5 +11,7 @@ data class ProfileModel(
     val registered: Dob,
     val picture: Picture,
     val nationality: String,
-    val location: Location
+    val city: String,
+    val id: String,
+    var isAccepted: Boolean? = null
 )
