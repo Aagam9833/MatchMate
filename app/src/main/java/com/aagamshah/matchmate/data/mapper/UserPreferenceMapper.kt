@@ -4,7 +4,7 @@ import com.aagamshah.matchmate.data.local.entity.UserPreferenceEntity
 import com.aagamshah.matchmate.domain.model.UserPreferenceModel
 
 fun UserPreferenceEntity.toDomain(): UserPreferenceModel =
-    UserPreferenceModel(genderPreference, age)
+    UserPreferenceModel(genderPreference, age, country)
 
 fun UserPreferenceModel.toEntity(): UserPreferenceEntity =
-    UserPreferenceEntity(0, genderPreference, age)
+    UserPreferenceEntity(0, genderPreference, age, country)

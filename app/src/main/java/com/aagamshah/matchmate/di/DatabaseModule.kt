@@ -23,7 +23,7 @@ class DatabaseModule {
             application,
             MatchMateDatabase::class.java,
             Constants.DATABASE
-        )
+        ).addMigrations(MatchMateDatabase.MIGRATION_1_2)
             .build()
 
     @Provides

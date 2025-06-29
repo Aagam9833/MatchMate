@@ -30,6 +30,8 @@ class ProfileAdapter(
         binding.ivAccept.setImageResource(R.drawable.ic_accept)
         binding.ivReject.setImageResource(R.drawable.ic_reject)
 
+        binding.tvMatchScore.text = item.matchScore.toString()
+
         when (item.isAccepted) {
             true -> binding.ivAccept.setImageResource(R.drawable.ic_accept_selected)
             false -> binding.ivReject.setImageResource(R.drawable.ic_reject_selected)

@@ -14,4 +14,8 @@ interface UserPreferenceDao {
 
     @Query("SELECT * FROM user_preferences WHERE id = 0")
     suspend fun getPreferences(): UserPreferenceEntity?
+
+    @Query("DELETE FROM user_preferences WHERE id = 0")
+    suspend fun deletePreferences()
+
 }

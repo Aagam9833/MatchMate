@@ -18,4 +18,8 @@ class UserPreferenceRepositoryImpl @Inject constructor(
     override suspend fun getPreference(): UserPreferenceModel? {
         return dao.getPreferences()?.toDomain()
     }
+
+    override suspend fun deletePreference() {
+        dao.deletePreferences()
+    }
 }

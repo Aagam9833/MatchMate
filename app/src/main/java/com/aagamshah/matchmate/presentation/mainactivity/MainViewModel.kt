@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aagamshah.matchmate.common.Country
 import com.aagamshah.matchmate.data.remote.Gender
 import com.aagamshah.matchmate.domain.model.UserPreferenceModel
 import com.aagamshah.matchmate.domain.repository.UserPreferenceRepository
@@ -37,14 +38,26 @@ class MainViewModel @Inject constructor(
     }
 
 
-    fun saveUserPreference(gender: Gender?, ageText: String, onResult: (Boolean, String) -> Unit) {
+    fun saveUserPreference(
+        gender: Gender?,
+        ageText: String,
+        country: Country?,
+        onResult: (Boolean, String) -> Unit
+    ) {
         val age = ageText.toIntOrNull()
         when {
             gender == null -> onResult(false, "Please select a gender")
             age == null || age < 18 -> onResult(false, "Enter valid age above 18")
+            country == null -> onResult(false, "Please select a country")
             else -> {
                 viewModelScope.launch {
-                    userPreferenceRepository.savePreference(UserPreferenceModel(gender, age))
+                    userPreferenceRepository.savePreference(
+                        UserPreferenceModel(
+                            gender,
+                            age,
+                            country
+                        )
+                    )
                     onResult(true, "Saved successfully")
                 }
             }

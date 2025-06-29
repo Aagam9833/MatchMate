@@ -5,4 +5,5 @@ import com.aagamshah.matchmate.domain.model.UserPreferenceModel
 interface UserPreferenceRepository {
     suspend fun savePreference(preference: UserPreferenceModel)
     suspend fun getPreference(): UserPreferenceModel?
+    suspend fun deletePreference()
 }

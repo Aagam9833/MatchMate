@@ -1,5 +1,6 @@
 package com.aagamshah.matchmate.presentation.profilelistactivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.aagamshah.matchmate.common.hasInternetConnection
 import com.aagamshah.matchmate.databinding.ActivityUserListBinding
 import com.aagamshah.matchmate.domain.model.ProfileModel
 import com.aagamshah.matchmate.presentation.adapter.ProfileAdapter
+import com.aagamshah.matchmate.presentation.mainactivity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,6 +58,14 @@ class ProfileListActivity : AppCompatActivity() {
                 }
             }
         }
+
+        profileListViewModel.isPreferenceCleared.observe(this) {
+            if (it) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     private fun setData(data: List<ProfileModel>) {
@@ -73,6 +83,10 @@ class ProfileListActivity : AppCompatActivity() {
         }
 
         binding.rvProfiles.adapter = profileListAdapter
+
+        binding.mbChangePref.setOnClickListener {
+            profileListViewModel.clearPreference()
+        }
 
     }
 }

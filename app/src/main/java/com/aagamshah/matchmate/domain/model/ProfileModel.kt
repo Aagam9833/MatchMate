@@ -13,5 +13,6 @@ data class ProfileModel(
     val nationality: String,
     val city: String,
     val id: String,
-    var isAccepted: Boolean? = null
+    var isAccepted: Boolean? = null,
+    val matchScore: Int = 0
 )
