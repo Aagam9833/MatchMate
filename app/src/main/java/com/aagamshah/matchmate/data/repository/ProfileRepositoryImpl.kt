@@ -19,6 +19,8 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun fetchProfiles(): Resource<List<ProfileModel>> {
         return try {
+            if (Math.random() < 0.3) throw Exception("Simulated network error")
+
             val response = apiService.getUsers(1)
             if (response.isSuccessful) {
                 val results = response.body()?.results.orEmpty()
