@@ -65,4 +65,4 @@ Final score ranges between 0 and 100.
 
 ## Given More Time
 
-- Add pagination api 
+- Add pagination api and better points calculation algorithm
