@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aagamshah.matchmate.common.Resource
+import com.aagamshah.matchmate.data.utils.ErrorHandler
 import com.aagamshah.matchmate.domain.model.ProfileModel
 import com.aagamshah.matchmate.domain.model.UserPreferenceModel
 import com.aagamshah.matchmate.domain.repository.ProfileRepository
@@ -28,6 +29,9 @@ class ProfileListViewModel @Inject constructor(
     private val _isPreferenceCleared = MutableLiveData<Boolean>()
     val isPreferenceCleared: LiveData<Boolean> = _isPreferenceCleared
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
     fun fetchProfiles() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = profileRepository.fetchProfiles()
@@ -35,21 +39,28 @@ class ProfileListViewModel @Inject constructor(
                 val prefs = userPreferenceRepository.getPreference()
                 val updated = prefs?.let { calculateMatchScore(result.data, it) } ?: result.data
                 _users.postValue(Resource.Success(updated))
-            } else {
+            } else if (result is Resource.Error) {
                 _users.postValue(result)
+                _error.postValue(result.message.message)
             }
         }
     }
 
     fun storeProfilesOffline(profiles: List<ProfileModel>) {
         viewModelScope.launch(Dispatchers.IO) {
-            profileRepository.saveProfiles(profiles)
+            val result = profileRepository.saveProfiles(profiles)
+            if (result is Resource.Error) {
+                _error.postValue(result.message.message)
+            }
         }
     }
 
     fun saveProfileChoice(id: String, isAccepted: Boolean?) {
         viewModelScope.launch(Dispatchers.IO) {
-            profileRepository.updateProfileChoice(id, isAccepted)
+            val result = profileRepository.updateProfileChoice(id, isAccepted)
+            if (result is Resource.Error) {
+                _error.postValue(result.message.message)
+            }
         }
     }
 
@@ -59,6 +70,7 @@ class ProfileListViewModel @Inject constructor(
             val prefs = userPreferenceRepository.getPreference()
             val updated = prefs?.let { calculateMatchScore(localProfiles, it) } ?: localProfiles
             _users.postValue(Resource.Success(updated))
+            _error.postValue(ErrorHandler.NetworkError().message)
         }
     }
 
@@ -77,5 +89,4 @@ class ProfileListViewModel @Inject constructor(
             it.copy(matchScore = calculateMatchScoreUseCase(it, prefs))
         }
     }
-
 }

@@ -9,7 +9,6 @@ interface ProfileRepository {
 
     suspend fun fetchProfiles(): Resource<List<ProfileModel>>
     suspend fun fetchOfflineProfiles(): List<ProfileModel>
-    suspend fun saveProfiles(users: List<ProfileModel>)
-    suspend fun updateProfileChoice(profileId: String, isAccepted: Boolean?)
-
+    suspend fun saveProfiles(users: List<ProfileModel>): Resource<Unit>
+    suspend fun updateProfileChoice(profileId: String, isAccepted: Boolean?): Resource<Unit>
 }

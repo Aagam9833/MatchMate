@@ -48,7 +48,6 @@ class ProfileListActivity : AppCompatActivity() {
             when (result) {
                 is Resource.Error -> {
                     binding.pbLoader.visibility = View.GONE
-                    Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Success -> {
@@ -65,6 +64,10 @@ class ProfileListActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+
+        profileListViewModel.error.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
     }
 

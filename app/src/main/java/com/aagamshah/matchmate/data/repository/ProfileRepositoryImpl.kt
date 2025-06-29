@@ -6,8 +6,10 @@ import com.aagamshah.matchmate.data.mapper.toDomainList
 import com.aagamshah.matchmate.data.mapper.toEntityList
 import com.aagamshah.matchmate.data.mapper.toProfileList
 import com.aagamshah.matchmate.data.service.ApiService
+import com.aagamshah.matchmate.data.utils.ErrorHandler
 import com.aagamshah.matchmate.domain.model.ProfileModel
 import com.aagamshah.matchmate.domain.repository.ProfileRepository
+import java.io.IOException
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
@@ -22,22 +24,41 @@ class ProfileRepositoryImpl @Inject constructor(
                 val results = response.body()?.results.orEmpty()
                 Resource.Success(results.toProfileList())
             } else {
-                Resource.Error("API Error: ${response.code()}")
+                Resource.Error(ErrorHandler.ApiError("API Error: ${response.code()}"))
             }
+        } catch (e: IOException) {
+            Resource.Error(ErrorHandler.NetworkError())
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Unknown error")
+            Resource.Error(ErrorHandler.UnknownError(e.message ?: "Unknown"))
         }
     }
 
     override suspend fun fetchOfflineProfiles(): List<ProfileModel> {
-        return profileDao.getAllProfiles().toDomainList()
+        return try {
+            profileDao.getAllProfiles().toDomainList()
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
-    override suspend fun saveProfiles(users: List<ProfileModel>) {
-        profileDao.insertProfiles(users.toEntityList())
+    override suspend fun saveProfiles(users: List<ProfileModel>): Resource<Unit> {
+        return try {
+            profileDao.insertProfiles(users.toEntityList())
+            Resource.Success(Unit)
+        } catch (e: Exception) {
+            Resource.Error(ErrorHandler.DbError("DB insert failed: ${e.localizedMessage}"))
+        }
     }
 
-    override suspend fun updateProfileChoice(profileId: String, isAccepted: Boolean?) {
-        profileDao.updateIsAccepted(profileId, isAccepted)
+    override suspend fun updateProfileChoice(
+        profileId: String,
+        isAccepted: Boolean?
+    ): Resource<Unit> {
+        return try {
+            profileDao.updateIsAccepted(profileId, isAccepted)
+            Resource.Success(Unit)
+        } catch (e: Exception) {
+            Resource.Error(ErrorHandler.DbError("DB update failed: ${e.localizedMessage}"))
+        }
     }
 }
