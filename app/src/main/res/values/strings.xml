@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MatchMate</string>
+    <string name="profile_matches">Profile Matches</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="age">Age</string>
+    <string name="city">City</string>
+    <string name="match_score">Match Score</string>
+    <string name="reject">Reject</string>
+    <string name="accept">Accept</string>
 </resources>

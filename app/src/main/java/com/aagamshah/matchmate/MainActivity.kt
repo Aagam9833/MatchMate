@@ -7,9 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.aagamshah.matchmate.ui.userlistactivity.UserListActivity
+import com.aagamshah.matchmate.presentation.profilelistactivity.ProfileListActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -24,8 +23,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         lifecycleScope.launch {
-            delay(2000)
-            startActivity(Intent(this@MainActivity, UserListActivity::class.java))
+            startActivity(Intent(this@MainActivity, ProfileListActivity::class.java))
         }
     }
 }

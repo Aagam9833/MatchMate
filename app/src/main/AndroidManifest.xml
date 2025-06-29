@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MatchMate">
         <activity
-            android:name=".ui.userlistactivity.UserListActivity"
+            android:name=".presentation.profilelistactivity.ProfileListActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

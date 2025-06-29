@@ -1,7 +1,7 @@
 package com.aagamshah.matchmate.di
 
-import com.aagamshah.matchmate.data.repository.UserRepositoryImpl
-import com.aagamshah.matchmate.domain.repository.UserRepository
+import com.aagamshah.matchmate.data.repository.ProfileRepositoryImpl
+import com.aagamshah.matchmate.domain.repository.ProfileRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,6 +12,6 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
+    abstract fun bindUserRepository(userRepositoryImpl: ProfileRepositoryImpl): ProfileRepository
 
 }

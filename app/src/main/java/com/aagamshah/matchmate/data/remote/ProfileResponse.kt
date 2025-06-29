@@ -1,6 +1,6 @@
 package com.aagamshah.matchmate.data.remote
 
-data class UserResponse(
+data class ProfileResponse(
     val results: List<Result>,
     val info: Info
 )
@@ -33,8 +33,8 @@ data class Dob (
 )
 
 enum class Gender {
-    Female,
-    Male
+    female,
+    male
 }
 
 data class ID (
